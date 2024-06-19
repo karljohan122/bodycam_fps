@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://djvexd8f5fv6d"]
+
+[ext_resource type="Texture2D" uid="uid://c8ngutahxmmkp" path="res://textures/bodycam_overlay/bodycam_overlay.png" id="1_d7fnf"]
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_sljke"]
+[ext_resource type="PackedScene" uid="uid://70ji1tc5kjlu" path="res://scenes/pistol/fort-28/fort_28.tscn" id="3_2r0mt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o63ud"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ibevp"]
+auto_exposure_enabled = true
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_sljke")
+
+[node name="hitbox" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_o63ud")
+
+[node name="cam_mount" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67105, 0)
+
+[node name="Camera3D" type="Camera3D" parent="cam_mount"]
+attributes = SubResource("CameraAttributesPractical_ibevp")
+fov = 100.0
+
+[node name="Control" type="Control" parent="cam_mount/Camera3D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="cam_mount/Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -9.0
+offset_right = 20.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_d7fnf")
+expand_mode = 1
+
+[node name="gun_handler" type="Node3D" parent="cam_mount"]
+transform = Transform3D(0.999471, -0.0325272, 0, 0.0325272, 0.999471, 0, 0, 0, 1, 0.377154, -0.553436, -0.722448)
+
+[node name="fort28" parent="cam_mount/gun_handler" instance=ExtResource("3_2r0mt")]
+transform = Transform3D(-8.74228e-09, 0, 0.2, 0, 0.2, 0, -0.2, 0, -8.74227e-09, 0, 0, 0)
